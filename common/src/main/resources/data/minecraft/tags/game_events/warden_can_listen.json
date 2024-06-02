@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "vibrativevoice:weak_voice_vibration",
+    "vibrativevoice:strong_voice_vibration"
+  ]
+}
