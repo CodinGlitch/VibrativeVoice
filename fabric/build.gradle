@@ -4,6 +4,11 @@ plugins {
     id 'maven-publish'
     id 'fabric-loom' version '1.2-SNAPSHOT'
 }
+
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/repository-publishers/codinglitch.gradle'
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/curseforge.gradle'
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/modrinth.gradle'
+
 base {
     archivesName = "${mod_name}-fabric-${minecraft_version}"
 }
@@ -69,6 +74,7 @@ processResources {
     from project(":common").sourceSets.main.resources
 }
 
-publishing {
-
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
