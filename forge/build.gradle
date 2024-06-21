@@ -4,6 +4,11 @@ plugins {
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
+
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/repository-publishers/codinglitch.gradle'
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/curseforge.gradle'
+apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/modrinth.gradle'
+
 base {
     archivesName = "${mod_name}-forge-${minecraft_version}"
 }
@@ -106,44 +111,4 @@ jar.finalizedBy('reobfJar')
 java {
     withSourcesJar()
     withJavadocJar()
-}
-
-publishing {
-    publications {
-        maven(MavenPublication) {
-            artifactId = "${mod_id}-forge"
-            from components.java
-
-            pom {
-                name = "$mod_name"
-                description = "$description"
-                url = 'https://codinglitch.com/'
-                licenses {
-                    license {
-                        name = 'The GNU General Public License, Version 3.0'
-                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'codinglitch'
-                        name = 'CodinGlitch'
-                        email = 'developer@codinglitch.com'
-                    }
-                }
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = 'codinglitch'
-            url = 'https://maven.codinglitch.com/repository/releases/'
-
-            credentials {
-                username = "$repository_username"
-                password = "$repository_password"
-            }
-        }
-    }
 }
