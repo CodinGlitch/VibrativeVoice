@@ -1,6 +1,7 @@
 package com.codinglitch.vibrativevoice;
 
 import com.codinglitch.lexiconfig.LexiconfigApi;
+import com.codinglitch.vibrativevoice.platform.Services;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2IntFunction;
 import net.minecraft.core.Registry;
@@ -28,6 +29,21 @@ public class CommonVibrativeVoice {
         return new ResourceLocation(CommonVibrativeVoice.ID, String.join(delimiter, arguments));
     }
 
+    // -- Logging -- \\
+    private static final Logger LOGGER = LogManager.getLogger(ID);
+    public static void info(Object object, Object... substitutions) {
+        LOGGER.info(String.valueOf(object), substitutions);
+    }
+    public static void debug(Object object, Object... substitutions) {
+        LOGGER.debug(String.valueOf(object), substitutions);
+    }
+    public static void warn(Object object, Object... substitutions) {
+        LOGGER.warn(String.valueOf(object), substitutions);
+    }
+    public static void error(Object object, Object... substitutions) {
+        LOGGER.error(String.valueOf(object), substitutions);
+    }
+
     public static final Map<ResourceLocation, GameEvent> FREQUENCY_GAME_EVENTS = new HashMap<>();
     public static GameEvent WEAK_VIBRATION_EVENT;
     public static GameEvent STRONG_VIBRATION_EVENT;
@@ -47,22 +63,7 @@ public class CommonVibrativeVoice {
     }
 
     private static <U> MemoryModuleType<U> registerMemoryType(String name, Codec<U> codec) {
-        return Registry.register(BuiltInRegistries.MEMORY_MODULE_TYPE, id(name), new MemoryModuleType<>(Optional.of(codec)));
-    }
-
-    // -- Logging -- \\
-    private static Logger LOGGER = LogManager.getLogger(ID);
-    public static void info(Object object, Object... substitutions) {
-        LOGGER.info(String.valueOf(object), substitutions);
-    }
-    public static void debug(Object object, Object... substitutions) {
-        LOGGER.debug(String.valueOf(object), substitutions);
-    }
-    public static void warn(Object object, Object... substitutions) {
-            LOGGER.warn(String.valueOf(object), substitutions);
-    }
-    public static void error(Object object, Object... substitutions) {
-        LOGGER.error(String.valueOf(object), substitutions);
+        return Services.PLATFORM.registerMemoryType(name, codec);
     }
 
     public static void makeGameEvents() {

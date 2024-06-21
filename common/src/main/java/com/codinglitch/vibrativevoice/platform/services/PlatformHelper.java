@@ -1,6 +1,7 @@
 package com.codinglitch.vibrativevoice.platform.services;
 
-import java.nio.file.Path;
+import com.mojang.serialization.Codec;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 
 public interface PlatformHelper {
 
@@ -11,7 +12,7 @@ public interface PlatformHelper {
      */
     String getPlatformName();
 
-    Path getConfigPath();
+    <U> MemoryModuleType<U> registerMemoryType(String name, Codec<U> codec);
 
     /**
      * Checks if a mod with the given id is loaded.
