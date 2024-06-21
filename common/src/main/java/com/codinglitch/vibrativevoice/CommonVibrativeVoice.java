@@ -6,7 +6,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntFunction;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Unit;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
@@ -75,13 +74,11 @@ public class CommonVibrativeVoice {
 
         final Object2IntFunction<GameEvent> map = (Object2IntFunction<GameEvent>) VibrationSystem.VIBRATION_FREQUENCY_FOR_EVENT;
         FREQUENCY_GAME_EVENTS.forEach((location, gameEvent) -> {
-            map.put(gameEvent, CONFIG.frequency);
+            map.put(gameEvent, VibrativeVoiceLibrary.CONFIG.frequency);
         });
     }
 
-    public static VibrativeVoiceConfig CONFIG;
     public static void initialize() {
-        CONFIG = new VibrativeVoiceConfig();
-        LexiconfigApi.register(CONFIG);
+
     }
 }
