@@ -1,15 +1,12 @@
 package com.codinglitch.vibrativevoice.mixin;
 
 import com.codinglitch.vibrativevoice.CommonVibrativeVoice;
+import com.codinglitch.vibrativevoice.VibrativeVoiceLibrary;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gameevent.vibrations.VibrationSystem;
 import org.spongepowered.asm.mixin.Final;
@@ -34,14 +31,14 @@ public abstract class MixinWardenVibrationUser implements VibrationSystem.User {
 
                 Optional<Double> lastLoudness = this$0.getBrain().getMemory(CommonVibrativeVoice.LOUDEST_PLAYER);
                 if (lastLoudness.isPresent()) {
-                    if ((loudness - lastLoudness.get()) >= CommonVibrativeVoice.CONFIG.warden.loudnessFactor) {
+                    if ((loudness - lastLoudness.get()) >= VibrativeVoiceLibrary.CONFIG.warden.loudnessFactor) {
                         this$0.setTarget(player);
                     }
 
                     if (loudness < lastLoudness.get()) return;
                 }
 
-                this$0.getBrain().setMemoryWithExpiry(CommonVibrativeVoice.LOUDEST_PLAYER, loudness, CommonVibrativeVoice.CONFIG.warden.loudnessRemembrance);
+                this$0.getBrain().setMemoryWithExpiry(CommonVibrativeVoice.LOUDEST_PLAYER, loudness, VibrativeVoiceLibrary.CONFIG.warden.loudnessRemembrance);
             }
         }
     }

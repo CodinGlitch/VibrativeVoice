@@ -11,7 +11,7 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jetbrains.annotations.Nullable;
 
 import static com.codinglitch.vibrativevoice.CommonVibrativeVoice.API;
-import static com.codinglitch.vibrativevoice.CommonVibrativeVoice.CONFIG;
+import static com.codinglitch.vibrativevoice.VibrativeVoiceLibrary.CONFIG;
 
 public class CommonVibrativePlugin {
     public static VoicechatApi api;
@@ -66,7 +66,7 @@ public class CommonVibrativePlugin {
             VibrativeVoiceApi.VibrationType type = API.getQualifyingType(volume);
             if (type == null) return;
 
-            API.trySendVibration(player.getUUID(), player, player.level(), type, CommonVibrativeVoice.CONFIG.cooldownDuration);
+            API.trySendVibration(player.getUUID(), player, player.level(), type, VibrativeVoiceLibrary.CONFIG.cooldownDuration);
         } else {
             //
         }

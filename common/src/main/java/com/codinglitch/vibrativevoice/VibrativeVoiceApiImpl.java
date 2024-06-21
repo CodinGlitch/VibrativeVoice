@@ -19,7 +19,7 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
 
     @Override
     public boolean applyRestriction(RestrictionType restrictionType, boolean flag) {
-        Object restriction = CommonVibrativeVoice.CONFIG.restrictions.getEntry(restrictionType.toString().toLowerCase());
+        Object restriction = VibrativeVoiceLibrary.CONFIG.restrictions.getEntry(restrictionType.toString().toLowerCase());
         if (restriction == null) {
             CommonVibrativeVoice.warn("Invalid restriction type {}!", restrictionType);
             return false;
@@ -30,7 +30,7 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
 
     @Override
     public <T> T getConfigEntry(String path, T defaultReturn) {
-        LexiconHolding currentHolder = CommonVibrativeVoice.CONFIG;
+        LexiconHolding currentHolder = VibrativeVoiceLibrary.CONFIG;
         String[] paths = path.split("\\.");
         for (String name : paths) {
             Object entry = currentHolder.getEntry(name);
@@ -42,15 +42,15 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
 
     @Override
     public void trySendVibration(UUID uuid, BlockPos location, Level level, VibrationType type) {
-        trySendVibration(uuid, location, level, type, CommonVibrativeVoice.CONFIG.cooldownDuration);
+        trySendVibration(uuid, location, level, type, VibrativeVoiceLibrary.CONFIG.cooldownDuration);
     }
     @Override
     public void trySendVibration(UUID uuid, Entity entity, Level level, VibrationType type) {
-        trySendVibration(uuid, entity, level, type, CommonVibrativeVoice.CONFIG.cooldownDuration);
+        trySendVibration(uuid, entity, level, type, VibrativeVoiceLibrary.CONFIG.cooldownDuration);
     }
     @Override
     public void trySendVibration(Entity entity, Level level, VibrationType type) {
-        trySendVibration(entity.getUUID(), entity, level, type, CommonVibrativeVoice.CONFIG.cooldownDuration);
+        trySendVibration(entity.getUUID(), entity, level, type, VibrativeVoiceLibrary.CONFIG.cooldownDuration);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
         UUID uuid = player.getUUID();
         if (loudnesses.containsKey(uuid)) {
             Peak lastPeak = loudnesses.get(uuid);
-            if (timestamp - lastPeak.timestamp < CommonVibrativeVoice.CONFIG.peakDuration) {
+            if (timestamp - lastPeak.timestamp < VibrativeVoiceLibrary.CONFIG.peakDuration) {
                 if (loudness <= lastPeak.volume) return;
             }
         }
@@ -141,9 +141,9 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
     @Override
     @Nullable
     public VibrationType getQualifyingType(double volume) {
-        if (volume > CommonVibrativeVoice.CONFIG.strongVibrationThreshold) {
+        if (volume > VibrativeVoiceLibrary.CONFIG.strongVibrationThreshold) {
             return VibrationType.STRONG;
-        } else if (volume > CommonVibrativeVoice.CONFIG.weakVibrationThreshold) {
+        } else if (volume > VibrativeVoiceLibrary.CONFIG.weakVibrationThreshold) {
             return VibrationType.WEAK;
         }
         return null;

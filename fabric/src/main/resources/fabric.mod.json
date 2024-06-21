@@ -22,6 +22,9 @@
         ],
         "voicechat": [
             "com.codinglitch.vibrativevoice.VibrativePlugin"
+        ],
+        "lexiconfig": [
+            "com.codinglitch.vibrativevoice.VibrativeVoiceLibrary"
         ]
     },
     "mixins": [
