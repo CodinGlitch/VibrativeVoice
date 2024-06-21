@@ -77,8 +77,6 @@ subprojects {
                 "mod_id": mod_id,
                 "license": license,
                 "description": project.description,
-                "neoforge_version": neoforge_version,
-                "neoforge_loader_version_range": neoforge_loader_version_range,
                 "voicechat_api_version": voicechat_api_version,
                 "voicechat_version": voicechat_version,
                 "lexiconfig_version": lexiconfig_version,

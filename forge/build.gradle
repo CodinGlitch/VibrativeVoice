@@ -103,6 +103,47 @@ processResources {
 
 jar.finalizedBy('reobfJar')
 
-publishing {
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = "${mod_id}-forge"
+            from components.java
+
+            pom {
+                name = "$mod_name"
+                description = "$description"
+                url = 'https://codinglitch.com/'
+                licenses {
+                    license {
+                        name = 'The GNU General Public License, Version 3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'codinglitch'
+                        name = 'CodinGlitch'
+                        email = 'developer@codinglitch.com'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'codinglitch'
+            url = 'https://maven.codinglitch.com/repository/releases/'
+
+            credentials {
+                username = "$repository_username"
+                password = "$repository_password"
+            }
+        }
+    }
 }

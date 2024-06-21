@@ -67,8 +67,8 @@ public class CommonVibrativeVoice {
     }
 
     public static void makeGameEvents() {
-        WEAK_VIBRATION_EVENT = new GameEvent(16);
-        STRONG_VIBRATION_EVENT = new GameEvent(16);
+        WEAK_VIBRATION_EVENT = new GameEvent("weak_voice_vibration", 16);
+        STRONG_VIBRATION_EVENT = new GameEvent("strong_voice_vibration", 16);
 
         registerFrequencyGameEvent(id("weak_voice_vibration"), WEAK_VIBRATION_EVENT);
         registerFrequencyGameEvent(id("strong_voice_vibration"), STRONG_VIBRATION_EVENT);

@@ -30,16 +30,38 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 }
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 publishing {
     publications {
         maven(MavenPublication) {
-            artifactId artifact_id
-            artifact(jar.archivePath) {
-                builtBy build
-                classifier null
+            artifactId = "${mod_id}-api"
+            from components.java
+
+            pom {
+                name = "$mod_name"
+                description = "$description"
+                url = 'https://codinglitch.com/'
+                licenses {
+                    license {
+                        name = 'The GNU General Public License, Version 3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'codinglitch'
+                        name = 'CodinGlitch'
+                        email = 'developer@codinglitch.com'
+                    }
+                }
             }
         }
     }
+
     repositories {
         maven {
             name = 'codinglitch'
