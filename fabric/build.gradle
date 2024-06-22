@@ -11,6 +11,10 @@ apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main
 apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/curseforge.gradle'
 apply from: 'https://raw.githubusercontent.com/CodinGlitch/gradle-templates/main/site-publishers/modrinth.gradle'
 
+components.java.withVariantsFromConfiguration(configurations.runtimeElements) {
+    skip()
+}
+
 base {
     archivesName = "${mod_name}-fabric-${minecraft_version}"
 }
