@@ -27,6 +27,7 @@ dependencies {
     modRuntimeOnly "maven.modrinth:simple-voice-chat:fabric-${minecraft_version}-${voicechat_version}"
 
     implementation "com.codinglitch.lexiconfig:lexiconfig-api:${lexiconfig_version}"
+    modRuntimeOnly "com.codinglitch.lexiconfig:lexiconfig-fabric:${lexiconfig_version}"
 }
 
 loom {
