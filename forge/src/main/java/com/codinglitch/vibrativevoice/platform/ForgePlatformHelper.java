@@ -4,6 +4,7 @@ import com.codinglitch.vibrativevoice.CommonVibrativeVoice;
 import com.codinglitch.vibrativevoice.platform.services.PlatformHelper;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -20,11 +21,11 @@ public class ForgePlatformHelper implements PlatformHelper {
         return "Forge";
     }
 
-    public static final Map<String, MemoryModuleType<?>> MEMORY_MODULE_TYPES = new HashMap<>();
+    public static final Map<ResourceLocation, MemoryModuleType<?>> MEMORY_MODULE_TYPES = new HashMap<>();
     @Override
     public <U> MemoryModuleType<U> registerMemoryType(String name, Codec<U> codec) {
         MemoryModuleType<U> moduleType = new MemoryModuleType<>(Optional.of(codec));
-        MEMORY_MODULE_TYPES.put(name, moduleType);
+        MEMORY_MODULE_TYPES.put(CommonVibrativeVoice.id(name), moduleType);
         return moduleType;
     }
 
