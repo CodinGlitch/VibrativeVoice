@@ -21,7 +21,8 @@ import java.util.Optional;
 @Mixin(targets = "net.minecraft.world.entity.monster.warden.Warden$VibrationUser")
 public abstract class MixinWardenVibrationUser implements VibrationSystem.User {
 
-    @Shadow @Final private Warden this$0;
+    @Shadow(aliases = {"field_44600"}) @Final
+    Warden this$0;
 
     @Inject(at = @At("HEAD"), method = "onReceiveVibration")
     private void vibrativevoice$onReceiveVibration(ServerLevel level, BlockPos pos, GameEvent event, Entity origin, Entity trueOrigin, float distance, CallbackInfo ci) {
