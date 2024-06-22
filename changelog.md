@@ -1,1 +1,2 @@
 - Updated Lexiconfig
+- Bug fixes
