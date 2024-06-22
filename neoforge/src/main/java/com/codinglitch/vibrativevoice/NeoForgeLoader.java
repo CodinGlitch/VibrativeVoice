@@ -1,5 +1,6 @@
 package com.codinglitch.vibrativevoice;
 
+import com.codinglitch.vibrativevoice.platform.NeoForgePlatformHelper;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -14,6 +15,8 @@ public class NeoForgeLoader {
             CommonVibrativeVoice.makeGameEvents();
             CommonVibrativeVoice.FREQUENCY_GAME_EVENTS.forEach(helper::register);
         });
+
+        event.register(Registries.MEMORY_MODULE_TYPE, helper -> NeoForgePlatformHelper.MEMORY_MODULE_TYPES.forEach(helper::register));
     }
 
     public static void load() {
