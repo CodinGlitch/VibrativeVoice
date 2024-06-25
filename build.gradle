@@ -96,3 +96,15 @@ subprojects {
         enabled = false
     }
 }
+
+tasks.register('publishModrinth') {
+    dependsOn("fabric:modrinth", "forge:modrinth", "neoforge:modrinth")
+}
+
+tasks.register('publishCurseForge') {
+    dependsOn("fabric:curseforge", "forge:curseforge", "neoforge:curseforge")
+}
+
+tasks.register('publishSites') {
+    dependsOn publishModrinth, publishCurseForge
+}
