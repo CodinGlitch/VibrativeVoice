@@ -21,7 +21,7 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
 
     @Override
     public boolean applyRestriction(RestrictionType restrictionType, boolean flag) {
-        Object restriction = VibrativeVoiceLibrary.CONFIG.restrictions.getEntry(restrictionType.toString().toLowerCase());
+        Boolean restriction = VibrativeVoiceLibrary.CONFIG.restrictions.<Boolean>getEntry(restrictionType.toString().toLowerCase()).orElse(null);
         if (restriction == null) {
             CommonVibrativeVoice.warn("Invalid restriction type {}!", restrictionType);
             return false;
@@ -181,13 +181,12 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
     public double getVolume(short[] decoded) { // it will simply have to do
         if (decoded.length == 0) return 0;
 
-        double average = 0;
+        float volume = 0;
         for (short sample : decoded) {
-            average += sample;
+            volume += sample*sample;
         }
-        average /= decoded.length;
 
-        return Math.sqrt(Math.abs(average));
+        return Math.sqrt(volume / decoded.length);
     }
 
     //---- Cooldowns ----\\
