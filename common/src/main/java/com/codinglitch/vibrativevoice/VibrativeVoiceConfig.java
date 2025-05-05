@@ -12,11 +12,11 @@ public class VibrativeVoiceConfig extends LexiconData {
     @LexiconEntry(comment = "This is the frequency to use for the vibration events. Defaults to 7.")
     public Integer frequency = 7;
 
-    @LexiconEntry(comment = "This is the threshold for when a weak vibration is transmitted (triggers warden and sculk sensors). Defaults to 6.")
-    public Double weakVibrationThreshold = 6d;
+    @LexiconEntry(comment = "This is the threshold for when a weak vibration is transmitted (triggers warden and sculk sensors). Defaults to 400.")
+    public Double weakVibrationThreshold = 400d;
 
-    @LexiconEntry(comment = "This is the threshold for when a strong vibration is transmitted (triggers shriekers without a sensor). Defaults to 12.")
-    public Double strongVibrationThreshold = 12d;
+    @LexiconEntry(comment = "This is the threshold for when a strong vibration is transmitted (triggers shriekers without a sensor). Defaults to 1500.")
+    public Double strongVibrationThreshold = 1500d;
 
     @LexiconEntry(comment = "This is the duration (in ticks) before a vibration signal can be sent again. Defaults to 20.")
     public Integer cooldownDuration = 20;
@@ -46,10 +46,10 @@ public class VibrativeVoiceConfig extends LexiconData {
     public Warden warden = new Warden();
 
     public static class Warden extends LexiconPageData {
-        @LexiconEntry(comment = "This is the gap in loudness required for the warden to completely switch targets to the louder person.")
-        public Double loudnessFactor = 0.8d;
+        @LexiconEntry(comment = "This is the gap in loudness required for the warden to completely switch targets to the louder person. Defaults to 200.")
+        public Double loudnessFactor = 200d;
 
-        @LexiconEntry(comment = "This is how long (in ticks) the warden remembers the loudness of the loudest player.")
+        @LexiconEntry(comment = "This is how long (in ticks) the warden remembers the loudness of the loudest player. Defaults to 300.")
         public Integer loudnessRemembrance = 300;
     }
 }
