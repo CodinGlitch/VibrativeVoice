@@ -1,2 +1,3 @@
 - Updated Lexiconfig
-- Bug fixes
+- Updated API
+- Changed loudness algorithm
