@@ -5,6 +5,7 @@ import com.codinglitch.vibrativevoice.VibrativeVoiceLibrary;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -28,12 +29,14 @@ public abstract class MixinWardenVibrationUser implements VibrationSystem.User {
     private void vibrativevoice$onReceiveVibration(ServerLevel level, BlockPos pos, GameEvent event, Entity origin, Entity trueOrigin, float distance, CallbackInfo ci) {
         if (origin instanceof ServerPlayer player) {
             if (event == CommonVibrativeVoice.WEAK_VIBRATION_EVENT || event == CommonVibrativeVoice.STRONG_VIBRATION_EVENT) {
-                double loudness = CommonVibrativeVoice.API.getPlayerLoudness(player);
+                float loudness = (float) CommonVibrativeVoice.API.getPlayerLoudness(player);
 
-                Optional<Double> lastLoudness = this$0.getBrain().getMemory(CommonVibrativeVoice.LOUDEST_PLAYER);
+                Optional<Float> lastLoudness = this$0.getBrain().getMemory(CommonVibrativeVoice.LOUDEST_PLAYER);
                 if (lastLoudness.isPresent()) {
-                    if ((loudness - lastLoudness.get()) >= VibrativeVoiceLibrary.CONFIG.warden.loudnessFactor) {
+                    if ((loudness - (lastLoudness.get())) >= VibrativeVoiceLibrary.CONFIG.warden.loudnessFactor) {
                         this$0.setTarget(player);
+                        this$0.increaseAngerAt(player, Mth.clamp((int) loudness/1000, 0, 20), true);
+                        CommonVibrativeVoice.info("test");
                     }
 
                     if (loudness < lastLoudness.get()) return;

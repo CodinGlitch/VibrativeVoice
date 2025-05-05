@@ -1,11 +1,8 @@
 package com.codinglitch.vibrativevoice;
 
-import com.codinglitch.lexiconfig.LexiconfigApi;
 import com.codinglitch.vibrativevoice.platform.Services;
 import com.mojang.serialization.Codec;
 import it.unimi.dsi.fastutil.objects.Object2IntFunction;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -15,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ServiceLoader;
 
 public class CommonVibrativeVoice {
@@ -48,7 +44,7 @@ public class CommonVibrativeVoice {
     public static GameEvent WEAK_VIBRATION_EVENT;
     public static GameEvent STRONG_VIBRATION_EVENT;
 
-    public static final MemoryModuleType<Double> LOUDEST_PLAYER = registerMemoryType("loudest_player", Codec.doubleRange(0, 50));
+    public static final MemoryModuleType<Float> LOUDEST_PLAYER = registerMemoryType("loudest_player", Codec.floatRange(0, 10000));
 
     public static <T> T loadService(Class<T> clazz) {
         final T loadedService = ServiceLoader.load(clazz)
