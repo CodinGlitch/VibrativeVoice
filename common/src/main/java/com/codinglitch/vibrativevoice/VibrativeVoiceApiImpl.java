@@ -1,6 +1,7 @@
 package com.codinglitch.vibrativevoice;
 
-import com.codinglitch.lexiconfig.classes.LexiconHolding;
+import com.codinglitch.lexiconfig.classes.LexiconEntryData;
+import com.codinglitch.lexiconfig.classes.LexiconSubstrate;
 import de.maxhenkel.voicechat.api.opus.OpusDecoder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -29,15 +31,34 @@ public class VibrativeVoiceApiImpl extends VibrativeVoiceApi {
     }
 
     @Override
-    public <T> T getConfigEntry(String path, T defaultReturn) {
-        LexiconHolding currentHolder = VibrativeVoiceLibrary.CONFIG;
+    public <T> Optional<T> getConfig(String path) {
+        LexiconSubstrate currentSubstrate = VibrativeVoiceLibrary.CONFIG;
         String[] paths = path.split("\\.");
         for (String name : paths) {
-            Object entry = currentHolder.getEntry(name);
-            if (entry instanceof LexiconHolding holding) currentHolder = holding;
-            else return (T) entry;
+            Object entry = currentSubstrate.getEntry(name).orElse(null);
+            if (entry instanceof LexiconSubstrate substrate) {
+                currentSubstrate = substrate;
+            } else {
+                return Optional.of((T) entry);
+            }
         }
-        return defaultReturn;
+        return Optional.empty();
+    }
+
+    @Override
+    public <T> void setConfig(String path, T value) {
+        LexiconSubstrate currentSubstrate = VibrativeVoiceLibrary.CONFIG;
+        String[] paths = path.split("\\.");
+        for (int i = 0; i < paths.length; i++) {
+            String name = paths[i];
+            if (i == paths.length-1) {
+                LexiconEntryData<T> entryData = (LexiconEntryData<T>) currentSubstrate.getContents(entry -> entry.getName().equals(name)).stream().findFirst().orElse(null);
+                if (entryData != null) entryData.set(value);
+            } else {
+                Object entry = currentSubstrate.getEntry(name).orElse(null);
+                if (entry instanceof LexiconSubstrate substrate) currentSubstrate = substrate;
+            }
+        }
     }
 
     @Override

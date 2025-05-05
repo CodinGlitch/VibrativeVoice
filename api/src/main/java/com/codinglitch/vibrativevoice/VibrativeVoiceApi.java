@@ -1,13 +1,13 @@
 package com.codinglitch.vibrativevoice;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 import java.util.UUID;
 
 public abstract class VibrativeVoiceApi {
@@ -37,12 +37,24 @@ public abstract class VibrativeVoiceApi {
     public abstract boolean applyRestriction(RestrictionType restrictionType, boolean flag);
 
     /**
-     * This is a method allowing the access of the Vibrative Voice config directly from the API.
-     * @param path The path to follow to retrieve the entry, i.e. "cooldownDuration" or "restrictions.whisperFactor"
-     * @param defaultReturn The default value to return. Also used to infer the type of the config.
-     * @return If the restriction is enabled in the config and if it can apply in the context
+     * Gets a config entry from a specified path.
+     * <p>
+     * To get the <b>whisperFactor</b> entry from the <b>restrictions</b> config:
+     * <pre>{@code VibrativeVoiceApi.INSTANCE.getConfig("restrictions.whisperFactor");}</pre>
+     * @param path The path to the config entry
+     * @return An optional containing the value, if found
      */
-    public abstract <T> T getConfigEntry(String path, T defaultReturn);
+    public abstract <T> Optional<T> getConfig(String path);
+
+    /**
+     * Sets a config entry from a specified path.
+     * <p>
+     * To set the <b>whisperFactor</b> entry from the <b>restrictions</b> config:
+     * <pre>{@code VibrativeVoiceApi.INSTANCE.getConfig("restrictions.whisperFactor", 0.8d);}</pre>
+     * @param path The path to the config entry
+     * @param value The value to set the config entry to
+     */
+    public abstract <T> void setConfig(String path, T value);
 
     /**
      * Tries to send a vibration originating at the specified location, checking if it is on cooldown and using the default config cooldown duration.
