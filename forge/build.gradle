@@ -87,10 +87,10 @@ dependencies {
 
     compileOnly project(":common")
 
-    implementation "com.codinglitch.lexiconfig:lexiconfig-api:${lexiconfig_version}"
-    runtimeOnly "com.codinglitch.lexiconfig:lexiconfig-forge:${lexiconfig_version}:slim"
+    compileOnly "com.codinglitch.lexiconfig:lexiconfig-api:${lexiconfig_version}"
+    runtimeOnly "com.codinglitch.lexiconfig:lexiconfig-forge:${lexiconfig_version}"
 
-    implementation "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
+    compileOnly "de.maxhenkel.voicechat:voicechat-api:${voicechat_api_version}"
     runtimeOnly fg.deobf("maven.modrinth:simple-voice-chat:forge-${minecraft_version}-${voicechat_version}")
 }
 
@@ -110,6 +110,12 @@ processResources {
 }
 
 jar.finalizedBy('reobfJar')
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
 
 java {
     withSourcesJar()
